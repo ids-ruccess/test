@@ -17,6 +17,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "paths": {
+      "COMMON/*": ["src/common/*"],
+      "LIBS/*": ["src/libs/*"],
+      "SRC/*": ["src/*"],
+    }
   }
 }

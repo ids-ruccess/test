@@ -11,6 +11,8 @@ import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
 import { HttpExceptionFilter } from "./common/filter/httpException.filter";
 import { ValidationException } from "./common/filter/exception/validation.exception";
 import { HttpResponseInterceptor } from "./common/interceptor/httpResponse.interceptor";
+import {ConfigModule} from "@nestjs/config";
+import { AwsModule } from './libs/aws/aws.module';
 
 const interceptors = [
   {
@@ -44,7 +46,10 @@ const pipes = [
   },
 ];
 @Module({
-  imports: [LogModule.forRoot()],
+  imports: [
+      LogModule.forRoot(),
+      AwsModule
+  ],
   controllers: [AppController],
   providers: [AppService, ...interceptors, ...filters, ...pipes],
 })

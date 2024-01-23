@@ -3,9 +3,9 @@ import { HttpStatus } from '@nestjs/common';
 import { ErrorTypeEnum } from '../../enum/errorType.enum';
 
 export class BadRequestException extends BaseException {
-  constructor(param: { message: string }) {
+  constructor(message: string) {
     super({
-      message: param.message,
+      message,
       statusCode: HttpStatus.BAD_REQUEST,
       errorType: ErrorTypeEnum.WARN,
     });
