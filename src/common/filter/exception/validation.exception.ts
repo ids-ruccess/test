@@ -4,23 +4,23 @@ import { BaseException } from './base.exception';
 import { ErrorTypeEnum } from '../../enum/errorType.enum';
 
 export class ValidationException extends BaseException {
-  constructor(errors: ValidationError[]) {
-    super({
-      statusCode: HttpStatus.BAD_REQUEST,
-      message: errors
-        .map((error, idx) => {
-          const { property, value, constraints } = error;
+    constructor(errors: ValidationError[]) {
+        super({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: errors
+                .map((error, idx) => {
+                    const { property, value, constraints } = error;
 
-          const joinedConstraints = Object.values(constraints!)
-            .map((value) => value)
-            .join(` + `);
+                    const joinedConstraints = Object.values(constraints!)
+                        .map(value => value)
+                        .join(` + `);
 
-          return `[property: ${property}, value: ${value}] ${joinedConstraints}`;
-        })
-        .join(` && `),
-      stack: new Error(JSON.stringify(errors)).stack,
-    });
+                    return `[property: ${property}, value: ${value}] ${joinedConstraints}`;
+                })
+                .join(` && `),
+            stack: new Error(JSON.stringify(errors)).stack,
+        });
 
-    this.errorType = ErrorTypeEnum.WARN;
-  }
+        this.errorType = ErrorTypeEnum.WARN;
+    }
 }

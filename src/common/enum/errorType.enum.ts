@@ -1,4 +1,4 @@
 export enum ErrorTypeEnum {
-  ERROR = 'error',
-  WARN = 'warn',
+    ERROR = 'error',
+    WARN = 'warn',
 }

@@ -30,4 +30,5 @@ ncu -u -f /^@nestjs/
 참고 : https://well-check.atlassian.net/wiki/spaces/QPKY/pages/917110829/env
 
 
-
+### prettier
+intellij의 경우 settings에 들어가서  
