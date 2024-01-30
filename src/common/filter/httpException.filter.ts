@@ -1,10 +1,11 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
+import { ArgumentsHost, ExceptionFilter, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { LogService } from '../../libs/log/log.service';
 import { HttpAdapterHost } from '@nestjs/core';
 import { BaseException } from './exception/base.exception';
 import { ErrorTypeEnum } from '../enum/errorType.enum';
+import { ErrorCode } from 'COMMON/constants/errorCode';
 
-@Catch()
+@Injectable()
 export class HttpExceptionFilter implements ExceptionFilter {
     constructor(
         private readonly logService: LogService,
@@ -20,6 +21,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
             if (error instanceof HttpException) {
                 return new BaseException({
                     message: error.message,
+                    errorCode: ErrorCode.INTERNAL_SERVER_ERROR,
                     statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
                     stack: error.stack,
                 });
@@ -28,6 +30,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
             let lastError = error as Error;
             return new BaseException({
                 message: lastError.message,
+                errorCode: ErrorCode.INTERNAL_SERVER_ERROR,
                 statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
                 stack: lastError.stack,
             });

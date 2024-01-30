@@ -2,17 +2,26 @@ import { HttpException } from '@nestjs/common';
 import { Exclude, Expose } from 'class-transformer';
 import { ErrorTypeEnum } from '../../enum/errorType.enum';
 import ErrorMessage from 'COMMON/constants/errorMessage';
+import { ErrorCode } from 'COMMON/constants/errorCode';
 
 export class BaseException extends HttpException {
     @Exclude() private _statusCode: number;
     @Exclude() private _stack?: string;
+    @Exclude() private _errorCode: ErrorCode;
     @Exclude() private _errorMessage: ErrorMessage | string;
     @Exclude() private _errorType: ErrorTypeEnum = ErrorTypeEnum.ERROR;
 
-    constructor(param: { message: string | ErrorMessage; statusCode: number; errorType?: ErrorTypeEnum; stack?: string }) {
+    constructor(param: {
+        message: string | ErrorMessage;
+        statusCode: number;
+        errorCode: ErrorCode;
+        errorType?: ErrorTypeEnum;
+        stack?: string;
+    }) {
         super(param.message, param.statusCode);
         this._statusCode = param.statusCode;
         this._errorMessage = param.message;
+        this._errorCode = param.errorCode;
         param.stack && (this.stack = param.stack);
         param.errorType && (this.errorType = param.errorType);
     }
@@ -33,6 +42,11 @@ export class BaseException extends HttpException {
     }
 
     @Expose()
+    get errorCode(): ErrorMessage | string {
+        return this._errorCode;
+    }
+
+    @Expose()
     get stack(): string | undefined {
         return this._stack;
     }
@@ -40,8 +54,12 @@ export class BaseException extends HttpException {
     getResponse() {
         return {
             statusCode: this.statusCode,
-            data: {
-                message: this.message,
+            success: false,
+            error: {
+                message: this.errorMessage,
+                errorCode: this.errorCode,
+                errorType: this.errorType,
+                stack: this.stack,
             },
         };
     }
@@ -60,5 +78,9 @@ export class BaseException extends HttpException {
 
     set errorMessage(value: ErrorMessage | string) {
         this._errorMessage = value;
+    }
+
+    set errorCode(value: ErrorCode) {
+        this._errorCode = value;
     }
 }
