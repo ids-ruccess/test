@@ -93,6 +93,7 @@ $ npm run test:e2e
 |:------------:|:-----:|:---:|:---:|:----:|
 |     .env     |   O   |  O  |     |      |
 | SecretManger |       |     |  O  |  O   |
+
 참고 : [세팅 가이드](https://well-check.atlassian.net/wiki/spaces/QPKY/pages/917110829/env), [env 파일 확인](https://well-check.atlassian.net/wiki/spaces/UxzsMGJ2xrp3/pages/985268300)
 
 
