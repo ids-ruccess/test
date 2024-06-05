@@ -1,6 +1,12 @@
 # {{project name을 작성해주세요}}
 {{project name}} 서버 입니다 
-
+<a href="https://github.com/devxb/gitanimals">
+<img
+  src="https://render.gitanimals.org/farms/ids-ruccess"
+  width="600"
+  height="300"
+/>
+</a>
 프로젝트 시작할때는 그 당시 nest 최신버전을 지향합니다.
 
 ## 세팅 및 설치 방법
